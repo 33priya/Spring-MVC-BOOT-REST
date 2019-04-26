@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myData" class="com.myBeans.MyData" scope="prototype">
+		<property name="data" value="55" />
+		<property name="name" value="XYZ" />
+	</bean>
+
+	<!-- Setter Injection using p tag added in spring 4.2 -->
+	<!-- <bean id="myData" class="com.myBeans.MyData" scope="prototype" p:data="55" p:name="XYZ"/> -->
+	
+	<bean id="obj" class="com.myBeans.MyData">
+		<property name="data" value="33" />
+		<property name="name" value="ABC" />
+	</bean>
+
+	<!-- Setter Injection -->
+	<bean id="stu" class="com.myBeans.Student">
+		<property name="name" value="Priya" />
+		<property name="rollNo" value="33" />
+		<property name="std" value="5" />
+		<property name="address" ref="address" />
+	</bean>
+
+	<!-- Setter Injection with autowire byName-->
+	<!-- <bean id="stu" class="com.myBeans.Student" autowire="byName">
+		<property name="name" value="Priya" />
+		<property name="rollNo" value="33" />
+		<property name="std" value="5" />
+	</bean> -->
+	
+	<!-- Setter Injection with autowire byType-->
+	<!-- <bean id="stu" class="com.myBeans.Student" autowire="byType">
+		<property name="name" value="Priya" />
+		<property name="rollNo" value="33" />
+		<property name="std" value="5" />
+	</bean> -->
+
+	<!-- Constructor Injection -->
+	<bean id="stu_constructor" class="com.myBeans.Student">
+		<constructor-arg value="Priya" index="0" />
+		<constructor-arg value="33" index="1" />
+		<constructor-arg value="5" index="2" />
+		<constructor-arg ref="address1" index="3" />
+	</bean>
+	
+	<!-- Constructor Injection with autowire constructor -->
+	<!-- <bean id="stu_constructor" class="com.myBeans.Student" autowire="constructor">
+		<constructor-arg value="Priya" index="0" />
+		<constructor-arg value="33" index="1" />
+		<constructor-arg value="5" index="2" />
+	</bean> -->
+
+	<bean id="address" class="com.myBeans.Address">
+		<property name="cityName" value="Banglore" />
+		<property name="pincode" value="560103" />
+	</bean>
+
+	<bean id="address1" class="com.myBeans.Address">
+		<property name="cityName" value="Varansi" />
+		<property name="pincode" value="221701" />
+	</bean>
+	
+	<!-- Collections Injection -->
+	<bean id="students_list" class="com.myBeans.MyStudentList">
+	<property name="students">
+		<list>
+			<ref bean="stu" />
+			<ref bean="stu_constructor" />
+			<ref bean="stu_constructor" />
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="students_set" class="com.myBeans.MyStudentSet">
+	<property name="students">
+		<set>
+			<ref bean="stu" />
+			<ref bean="stu_constructor" />
+			<ref bean="stu_constructor" />
+		</set>
+	</property>
+	</bean>
+
+	<bean id="student_map" class="com.myBeans.DemoMap">
+	<property name="map">
+		<map>
+			<entry key="name1" value-ref="stu" />
+			<entry key="name2" value-ref="stu_constructor" />
+			<entry key="name3" value-ref="stu_constructor" />
+		</map>
+	</property>
+	</bean>
+	
+	<bean id="country" class="com.myBeans.Country">
+	<property name="name" value="India" />
+	<property name="continent" value="Asia" />
+	<property name="state_capitals">
+		<props>
+			<prop key="Maharashtra">Mumbai</prop>
+			<prop key="Goa">Panji</prop>
+			<prop key="Punjab">Chandigarh</prop>
+		</props>
+	</property>
+	</bean>
+</beans>
